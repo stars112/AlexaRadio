@@ -1,0 +1,11 @@
+%YAML 1.1
+
+AlexaRadio:
+    filename: ARadio.py
+    visu_acl: 'yes'
+    watch_item:
+    -   '*.AlexaRadio.Praesenzmelder'
+    -   '*.AlexaRadio.PlayPause'
+    -   '*.AlexaRadio.Station'
+    -   '*.AlexaRadio.Sender.speichern'
+    -   '*.AlexaRadio.Volume.Setzen'

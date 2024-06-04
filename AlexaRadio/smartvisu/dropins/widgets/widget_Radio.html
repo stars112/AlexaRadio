@@ -1,0 +1,359 @@
+/**
+ ***************************************************************************************************************************************************
+ * Widget zum Abspielen von TuneIn Radiosendern mit einem Alexa Gerät																									                                	*
+ * 
+ * id: 					Widget ID (Optional)
+ * item_alexa:			Item was zu dem Alexa Struct Eintrag führt
+ *
+ ***************************************************************************************************************************************************
+ */
+{% macro Alexa(id, item_alexa) %}
+
+{% import "@widgets/basic.html" as basic %}
+{% import "@widgets/multimedia.html" as multimedia %}
+{% import "@widgets/device.html" as device %}
+{% import "@widgets/status.html" as status %}
+
+<style>
+.no_deco>a.ui-link {
+    text-decoration: none;
+}
+
+.before::before, .after::after {
+            content: "\A";
+            white-space: pre;
+        }
+</style>
+
+/** # Alexa-Radio ----------------------------------------- */
+	<div class="block">
+		<div class="set-2" data-role="collapsible-set" data-theme="a" data-content-theme="a" data-mini="true">
+			<div data-role="collapsible" data-collapsed="false">
+				<h3>Radio </h3>
+                <table align="middle" width="100%">
+					<tr>
+						<td align="left"><b>Alexa Radio:</b></td>
+						<td width="50px" align=center></td>
+						<td width="80px">{{ basic.stateswitch('', item_alexa~'.AlexaRadio.PlayPause', 'mini', [0,1], ['audio_play.svg', 'audio_stop.svg']) }}</td>
+					</tr>
+				</table>
+				<table align="middle" width="100%">
+					<tr>
+						<td width="100px"></td>
+						<td> </td>
+						<td width="100px"><div class="image"> {{ multimedia.image('', item_alexa~'.AlexaRadio.Sender.Info.fan_art', '', '10s') }} </div></td>
+						<td> </td>
+						<td width="70px"></td>
+						<td width="100px" align=center>{{ basic.symbol('', item_alexa~'.AlexaRadio.Sender.Info.mute', '', ['jquery_audio.svg','jquery_forbidden.svg'], [0,1]) }}
+                            <span class="no_deco">
+                                {{ basic.print('', item_alexa~'.AlexaRadio.Sender.Info.volume', '', '', '', '', '#popupvolume', 'popup') }}
+                            </span>
+                        </td>
+					</tr>
+				</table>
+                <div id="popupvolume" data-role="popup">
+					<a href="#" data-rel="back" data-role="button" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+					<h2 align=center><u>Lautstärke</u></h2>
+					<table width="100%">
+						<tr>
+                            <td>{{ basic.offset('',item_alexa~'.AlexaRadio.Volume', '-5', 'jquery_minus.svg', '', 'micro') }}</td>
+                            <td>{{ basic.print('', item_alexa~'.AlexaRadio.Volume') }}</td>
+                            <td>{{ basic.offset('',item_alexa~'.AlexaRadio.Volume', '5', 'jquery_plus.svg', '', 'micro') }}</td>
+                            <td width="30px"></td>
+                            <td>{{ basic.stateswitch('', item_alexa~'.AlexaRadio.Volume.Setzen', 'micro', '1', 'audio_rec.svg', '', '#f00') }}</td>
+                        </tr>
+                    </table>
+                </div>
+                {{ status.collapse('ATitel', item_alexa~'.AlexaRadio.Titel') }}
+                <div class="hide" data-bind="ATitel">
+                    <table align="middle" width="100%">
+					    <tr>
+						    <td>{{ basic.print('', item_alexa~'.AlexaRadio.Sender.Info.artist') }}</td>
+					    </tr>
+				    </table> 
+                </div>
+				{{ status.collapse('AZusatz', item_alexa~'.AlexaRadio.Zusatzinfo') }}
+				<div class="hide" data-bind="AZusatz">
+					<table align="middle" width="100%">
+						<tr>
+							<td>{{ basic.print('', item_alexa~'.AlexaRadio.Sender.Info.subText1') }}</td>
+						</tr><tr>
+							<td>{{ basic.print('', item_alexa~'.AlexaRadio.Sender.Info.subText2') }}</td>
+						</tr>
+				    </table>
+				</div>
+				{{ status.collapse('KStation', item_alexa~'.AlexaRadio.Kurzwahl') }}
+				<div class="hide" data-bind="KStation">
+					<hr>
+					<span  data-role="controlgroup" data-type="horizontal">
+                        {{ basic.stateswitch('AStation1', item_alexa~'.AlexaRadio.StatusDummy:'~item_alexa~'.AlexaRadio.Station', '', 1, 'https://cdn-radiotime-logos.tunein.com/s255597g.png', '', '', 'blink:6', '#popupsetup1') }}
+						{{ basic.stateswitch('AStation2', item_alexa~'.AlexaRadio.StatusDummy:'~item_alexa~'.AlexaRadio.Station', '', 2, 'https://cdn-profiles.tunein.com/s8954/images/logod.png', '', '', 'blink:6', '#popupsetup2') }}
+						{{ basic.stateswitch('AStation3', item_alexa~'.AlexaRadio.StatusDummy:'~item_alexa~'.AlexaRadio.Station', '', 3, 'https://cdn-profiles.tunein.com/s56857/images/logod.png', '', '', 'blink:6', '#popupsetup3') }}
+						{{ basic.stateswitch('AStation4', item_alexa~'.AlexaRadio.StatusDummy:'~item_alexa~'.AlexaRadio.Station', '', 4, 'https://cdn-profiles.tunein.com/s6642/images/logod.png', '', '', 'blink:6', '#popupsetup4') }}
+						{{ basic.stateswitch('AStation5', item_alexa~'.AlexaRadio.StatusDummy:'~item_alexa~'.AlexaRadio.Station', '', 5, 'https://cdn-profiles.tunein.com/s25531/images/logod.png', '', '', 'blink:6', '#popupsetup5') }}
+					</span>
+                    {{ basic.print('', item_alexa~'.AlexaRadio.Sender.SenderLogo.Logo1','script','$("#'~page~'-AStation1").next("a").find("img.icon").attr("src", VAR1);') }}
+                    {{ basic.print('', item_alexa~'.AlexaRadio.Sender.SenderLogo.Logo2','script','$("#'~page~'-AStation2").next("a").find("img.icon").attr("src", VAR1);') }}
+                    {{ basic.print('', item_alexa~'.AlexaRadio.Sender.SenderLogo.Logo3','script','$("#'~page~'-AStation3").next("a").find("img.icon").attr("src", VAR1);') }}
+                    {{ basic.print('', item_alexa~'.AlexaRadio.Sender.SenderLogo.Logo4','script','$("#'~page~'-AStation4").next("a").find("img.icon").attr("src", VAR1);') }}
+                    {{ basic.print('', item_alexa~'.AlexaRadio.Sender.SenderLogo.Logo5','script','$("#'~page~'-AStation5").next("a").find("img.icon").attr("src", VAR1);') }}
+                    <div id="popupsetup1" data-role="popup">
+						<a href="#" data-rel="back" data-role="button" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+						<h2 align=center><u>Sender 1 speichern</u></h2>
+						<table width="100%">
+							<tr>
+                                <td width="130px" valign=bottom>TI-Nr / PL-Name:</td>
+							    <td width="30px"></td>
+							    <td width="130px" valign=bottom>Anzeige Name:</td>
+							    <td width="30px"></td>
+							</tr><tr>
+								<td >{{ basic.input('', item_alexa~'.AlexaRadio.Sender.SenderNr.Setup1', 'text') }}</td>
+                                <td ></td>
+                                <td >{{ basic.input('', item_alexa~'.AlexaRadio.Sender.SenderName.Setup1', 'text') }}</td>
+                                <td >{{ basic.stateswitch('', item_alexa~'.AlexaRadio.Sender.speichern', 'mini', '101', 'audio_rec.svg', '', '#f00') }}</td>
+							</tr>
+						</table>
+						<hr>
+						<table width="100%">
+							<tr>
+								<td width="140px" align=center valign=bottom>Logo Version: {{ basic.print('', item_alexa~'.AlexaRadio.Sender.SenderLogo.Logo1.Art') }}</td>
+								<td width="20px"></td>
+								<td valign=bottom>Lokales Bild: </td>
+							</tr><tr>
+								<td align=center>
+									<span data-role="controlgroup" data-type="horizontal">
+                                        {{ basic.stateswitch('', item_alexa~'.AlexaRadio.Sender.SenderLogo.Logo1.Art', 'mini', 1, 'edit_numeric_1.svg', 'Html') }}
+										{{ basic.stateswitch('', item_alexa~'.AlexaRadio.Sender.SenderLogo.Logo1.Art', 'mini', 2, 'edit_numeric_2.svg', 'Html') }}
+										{{ basic.stateswitch('', item_alexa~'.AlexaRadio.Sender.SenderLogo.Logo1.Art', 'mini', 3, 'edit_numeric_3.svg', 'Bild') }}
+									</span>
+								</td>
+								<td align=center>-></td>
+								<td>{{ basic.input('', item_alexa~'.AlexaRadio.Sender.SenderLogo.Logo1.Lokal', 'text') }}</td>
+							</tr>
+						</table>
+					</div>
+                    <div id="popupsetup2" data-role="popup">
+						<a href="#" data-rel="back" data-role="button" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+						<h2 align=center><u>Sender 2 speichern</u></h2>
+						<table width="100%">
+							<tr>
+                                <td width="130px" valign=bottom>TI-Nr / PL-Name:</td>
+							    <td width="30px"></td>
+							    <td width="130px" valign=bottom>Anzeige Name:</td>
+							    <td width="30px"></td>
+							</tr><tr>
+								<td>{{ basic.input('', item_alexa~'.AlexaRadio.Sender.SenderNr.Setup2', 'text') }}</td>
+                                <td></td>
+                                <td>{{ basic.input('', item_alexa~'.AlexaRadio.Sender.SenderName.Setup2', 'text') }}</td>
+                                <td>{{ basic.stateswitch('', item_alexa~'.AlexaRadio.Sender.speichern', 'mini', '102', 'audio_rec.svg', '', '#f00') }}</td>
+							</tr>
+                        </table>
+						<hr>
+						<table width="100%">
+							<tr>
+								<td width="140px" align=center valign=bottom>Logo Version: {{ basic.print('', item_alexa~'.AlexaRadio.Sender.SenderLogo.Logo2.Art') }}</td>
+								<td width="20px"></td>
+								<td valign=bottom>Lokales Bild: </td>
+							</tr><tr>
+								<td align=center>
+									<span data-role="controlgroup" data-type="horizontal">
+										{{ basic.stateswitch('', item_alexa~'.AlexaRadio.Sender.SenderLogo.Logo2.Art', 'mini', 1, 'edit_numeric_1.svg', 'Html') }}
+										{{ basic.stateswitch('', item_alexa~'.AlexaRadio.Sender.SenderLogo.Logo2.Art', 'mini', 2, 'edit_numeric_2.svg', 'Html') }}
+										{{ basic.stateswitch('', item_alexa~'.AlexaRadio.Sender.SenderLogo.Logo2.Art', 'mini', 3, 'edit_numeric_3.svg', 'Bild') }}
+									</span>
+								</td>
+								<td align=center>-></td>
+								<td>{{ basic.input('', item_alexa~'.AlexaRadio.Sender.SenderLogo.Logo2.Lokal', 'text') }}</td>
+							</tr>
+						</table>
+					</div>
+                    <div id="popupsetup3" data-role="popup">
+						<a href="#" data-rel="back" data-role="button" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+						<h2 align=center><u>Sender 3 speichern</u></h2>
+						<table width="100%">
+							<tr>
+                                <td width="130px" valign=bottom>TI-Nr / PL-Name:</td>
+							    <td width="30px"></td>
+							    <td width="130px" valign=bottom>Anzeige Name:</td>
+							    <td width="30px"></td>
+							</tr><tr>
+								<td>{{ basic.input('', item_alexa~'.AlexaRadio.Sender.SenderNr.Setup3', 'text') }}</td>
+                                <td></td>
+                                <td>{{ basic.input('', item_alexa~'.AlexaRadio.Sender.SenderName.Setup3', 'text') }}</td>
+                                <td>{{ basic.stateswitch('', item_alexa~'.AlexaRadio.Sender.speichern', 'mini', '103', 'audio_rec.svg', '', '#f00') }}</td>
+							</tr>
+                        </table>
+						<hr>
+						<table width="100%">
+							<tr>
+								<td width="140px" align=center valign=bottom>Logo Version: {{ basic.print('', item_alexa~'.AlexaRadio.Sender.SenderLogo.Logo3.Art') }}</td>
+								<td width="20px"></td>
+								<td valign=bottom>Lokales Bild: </td>
+							</tr><tr>
+								<td align=center>
+									<span data-role="controlgroup" data-type="horizontal">
+										{{ basic.stateswitch('', item_alexa~'.AlexaRadio.Sender.SenderLogo.Logo3.Art', 'mini', 1, 'edit_numeric_1.svg', 'Html') }}
+										{{ basic.stateswitch('', item_alexa~'.AlexaRadio.Sender.SenderLogo.Logo3.Art', 'mini', 2, 'edit_numeric_2.svg', 'Html') }}
+										{{ basic.stateswitch('', item_alexa~'.AlexaRadio.Sender.SenderLogo.Logo3.Art', 'mini', 3, 'edit_numeric_3.svg', 'Bild') }}
+									</span>
+								</td>
+								<td align=center>-></td>
+								<td>{{ basic.input('', item_alexa~'.AlexaRadio.Sender.SenderLogo.Logo3.Lokal', 'text') }}</td>
+							</tr>
+						</table>
+					</div>
+                    <div id="popupsetup4" data-role="popup">
+						<a href="#" data-rel="back" data-role="button" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+						<h2 align=center><u>Sender 4 speichern</u></h2>
+						<table width="100%">
+							<tr>
+                                <td width="130px" valign=bottom>TI-Nr / PL-Name:</td>
+							    <td width="30px"></td>
+							    <td width="130px" valign=bottom>Anzeige Name:</td>
+							    <td width="30px"></td>
+							</tr><tr>
+								<td>{{ basic.input('', item_alexa~'.AlexaRadio.Sender.SenderNr.Setup4', 'text') }}</td>
+                                <td></td>
+                                <td>{{ basic.input('', item_alexa~'.AlexaRadio.Sender.SenderName.Setup4', 'text') }}</td>
+                                <td>{{ basic.stateswitch('', item_alexa~'.AlexaRadio.Sender.speichern', 'mini', '104', 'audio_rec.svg', '', '#f00') }}</td>
+							</tr>
+                        </table>
+						<hr>
+						<table width="100%">
+							<tr>
+								<td width="140px" align=center valign=bottom>Logo Version: {{ basic.print('', item_alexa~'.AlexaRadio.Sender.SenderLogo.Logo4.Art') }}</td>
+								<td width="20px"></td>
+								<td valign=bottom>Lokales Bild: </td>
+							</tr><tr>
+								<td align=center>
+									<span data-role="controlgroup" data-type="horizontal">
+										{{ basic.stateswitch('', item_alexa~'.AlexaRadio.Sender.SenderLogo.Logo4.Art', 'mini', 1, 'edit_numeric_1.svg', 'Html') }}
+										{{ basic.stateswitch('', item_alexa~'.AlexaRadio.Sender.SenderLogo.Logo4.Art', 'mini', 2, 'edit_numeric_2.svg', 'Html') }}
+										{{ basic.stateswitch('', item_alexa~'.AlexaRadio.Sender.SenderLogo.Logo4.Art', 'mini', 3, 'edit_numeric_3.svg', 'Bild') }}
+									</span>
+								</td>
+								<td align=center>-></td>
+								<td>{{ basic.input('', item_alexa~'.AlexaRadio.Sender.SenderLogo.Logo4.Lokal', 'text') }}</td>
+							</tr>
+						</table>
+					</div>
+                    <div id="popupsetup5" data-role="popup">
+						<a href="#" data-rel="back" data-role="button" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+						<h2 align=center><u>Sender 5 speichern</u></h2>
+						<table width="100%">
+							<tr>
+                                <td width="130px" valign=bottom>TI-Nr / PL-Name:</td>
+							    <td width="30px"></td>
+							    <td width="130px" valign=bottom>Anzeige Name:</td>
+							    <td width="30px"></td>
+							</tr><tr>
+								<td>{{ basic.input('', item_alexa~'.AlexaRadio.Sender.SenderNr.Setup5', 'text') }}</td>
+                                <td></td>
+                                <td>{{ basic.input('', item_alexa~'.AlexaRadio.Sender.SenderName.Setup5', 'text') }}</td>
+                                <td>{{ basic.stateswitch('', item_alexa~'.AlexaRadio.Sender.speichern', 'mini', '105', 'audio_rec.svg', '', '#f00') }}</td>
+							</tr>
+                        </table>
+						<hr>
+						<table width="100%">
+							<tr>
+								<td width="140px" align=center valign=bottom>Logo Version: {{ basic.print('', item_alexa~'.AlexaRadio.Sender.SenderLogo.Logo5.Art') }}</td>
+								<td width="20px"></td>
+								<td valign=bottom>Lokales Bild: </td>
+							</tr><tr>
+								<td align=center>
+									<span data-role="controlgroup" data-type="horizontal">
+										{{ basic.stateswitch('', item_alexa~'.AlexaRadio.Sender.SenderLogo.Logo5.Art', 'mini', 1, 'edit_numeric_1.svg', 'Html') }}
+										{{ basic.stateswitch('', item_alexa~'.AlexaRadio.Sender.SenderLogo.Logo5.Art', 'mini', 2, 'edit_numeric_2.svg', 'Html') }}
+										{{ basic.stateswitch('', item_alexa~'.AlexaRadio.Sender.SenderLogo.Logo5.Art', 'mini', 3, 'edit_numeric_3.svg', 'Bild') }}
+									</span>
+								</td>
+								<td align=center>-></td>
+								<td>{{ basic.input('', item_alexa~'.AlexaRadio.Sender.SenderLogo.Logo5.Lokal', 'text') }}</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+				<br>
+				<div data-role="collapsible" data-theme="a" data-content-theme="a" data-mini="true">
+					<h3>
+					    <table align="middle" width="100%">
+					        <tr>
+							    <td align="left">Einstellungen:</td>
+							    <td Width="40px">{{ basic.icon('Settings_icon', '', '', 'micro') }}</td>
+						    </tr>
+					    </table>
+					</h3>
+					<table align="middle" width="100%">
+						<tr>
+							<td align="left">Alexa Gerätename:</td>
+							<td Width="50px">{{ basic.stateswitch('', item_alexa~'.AlexaRadio.Sender.speichern', 'micro', 99, 'jquery_refresh.svg', '') }}</td>
+							<td Width="100px">{{ basic.select('', item_alexa~'.AlexaRadio.Geraet', '', '', '', '', '', '', item_alexa~'.AlexaRadio.Meine_Geraete') }}</td>
+						</tr><tr>
+							<td align="left">Einschaltsender:</td>
+							<td>{{ basic.stateswitch('', '', 'icon', '', 'control_dots_hor_f.svg', '', 'icon0', '', '#popupliste') }}</td>
+							<td>{{ basic.select('', item_alexa~'.AlexaRadio.Sender.SenderAkt', '', '', '', '', '', '', item_alexa~'.AlexaRadio.Sender.SenderNr', item_alexa~'.AlexaRadio.Sender.SenderName') }}</td>
+						</tr><tr>
+							<td align="left">Einschaltlautstärke:</td>
+							<td></td>
+							<td>{{ basic.select('', item_alexa~'.AlexaRadio.Volume.An', '', [0,4,7,10,15,20,30,40,50,60]) }}</td>
+						</tr><tr>
+							<td align="left">Kurzwahl Knöpfe anzeigen:</td>
+							<td></td>
+							<td>{{basic.flip('', item_alexa~'.AlexaRadio.Kurzwahl', 'Ein', 'Aus')}}</td>
+						</tr><tr>
+							<td align="left">Titel anzeigen:</td>
+							<td></td>
+							<td>{{basic.flip('', item_alexa~'.AlexaRadio.Titel', 'Ein', 'Aus')}}</td>
+						</tr><tr>
+							<td align="left">Zusatzinfo anzeigen:</td>
+							<td></td>
+							<td>{{basic.flip('', item_alexa~'.AlexaRadio.Zusatzinfo', 'Ein', 'Aus')}}</td>
+						</tr><tr>
+							<td align="left">Autom. AN Sperren:</td>
+							<td>{{ device.uzsuicon('', item_alexa~'.AlexaRadio.Sperren.schaltuhr', 'Autom. Einschalten sperren', 'jquery_clock.svg', 'jquery_clock.svg', '', ['An','Aus']) }}</td>
+							<td>{{basic.flip('', item_alexa~'.AlexaRadio.Sperren', 'Ein', 'Aus')}}</td>
+						</tr>
+					</table>
+                    <div id="popupliste" data-role="popup">
+    					<a href="#" data-rel="back" data-role="button" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+    					<h2 align=center><u>Senderliste bearbeiten:</u></h2>
+                        <table width="100%">
+							<tr>
+                                <td width="130px" valign=bottom>TI-Nr / PL-Name:</td>
+							    <td width="30px"></td>
+							    <td width="130px" valign=bottom>Anzeige Name:</td>
+							</tr><tr>
+								<td>{{ basic.input('', item_alexa~'.AlexaRadio.Sender.SenderNr.aendern', 'text') }}</td>
+                                <td></td>
+                                <td>{{ basic.input('', item_alexa~'.AlexaRadio.Sender.SenderName.aendern', 'text') }}</td>
+							</tr>
+                        </table>
+                        <table width="100%">
+    						<tr>
+                                <td width="130px">Sender hinzufügen:</td>
+                                <td width="30px"></td>
+                                <td></td>
+								<td width="30px"></td>
+                                <td width="50px"> {{ basic.stateswitch('', item_alexa~'.AlexaRadio.StatusDummy:'~item_alexa~'.AlexaRadio.Sender.speichern', 'micro', '90', 'jquery_check.svg', '', 'icon1', 'blink:1') }}</td>
+                            </tr><tr>
+                                <td >Sender löschen:</td>
+                                <td width="30px">{{ basic.stateswitch('', item_alexa~'.AlexaRadio.StatusDummy:'~item_alexa~'.AlexaRadio.Sender.speichern', 'micro', '91', 'jquery_delete.svg', '', '#f00', 'blink:1') }}</td>
+                                <td></td>
+                                <td></td>
+								<td></td>
+                            </tr><tr>
+                                <td>Sender verschieben:</td>
+                                <td></td>
+                                <td></td>
+                                <td> {{ basic.stateswitch('', item_alexa~'.AlexaRadio.Sender.speichern', 'micro', '92', 'jquery_carat-u.svg', '', '', '') }}</td>
+                                <td> {{ basic.stateswitch('', item_alexa~'.AlexaRadio.Sender.speichern', 'micro', '93', 'jquery_carat-d.svg', '', '', '') }}</td>
+                            </tr>
+                        </table>
+                        <br><br>
+                    </div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endmacro %}

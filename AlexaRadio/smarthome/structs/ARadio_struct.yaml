@@ -1,0 +1,306 @@
+AlexaRadioVorlage:
+
+    AlexaRadio:
+        struct: alexarc4shng.child
+        
+        Meine_Geraete:
+            type: list
+            visu_acl: rw
+            cache: 'yes'
+
+        Praesenzmelder:
+            type: bool
+            visu_acl: rw
+            enforce_updates: 'yes'
+            knx_dpt: 1
+
+        PlayPause:
+            type: num
+            enforce_updates: 'yes'
+            visu_acl: rw
+            
+        Sperren:
+            type: bool
+            enforce_updates: 'yes'
+            visu_acl: rw
+            cache: 'yes'
+            
+            schaltuhr:
+                type: dict
+                enforce_updates: 'yes'
+                uzsu_item: ..
+                visu_acl: rw
+                cache: 'yes'
+                
+                active:
+                    type: bool
+                    eval: sh...activate(value)
+                    visu_acl: rw
+
+                Status:
+                    type: bool
+                    cache: 'yes'
+            
+        Sender:
+
+            speichern:
+                type: num
+                visu_acl: rw
+                enforce_updates: 'yes'
+
+            SenderAkt:
+                type: str
+                visu_acl: rw
+                cache: 'yes'
+                initial_value: 's255597' #<-80s80s; 's237814' = Radio38
+            
+            SenderNr:
+                type: list
+                visu_acl: rw
+                cache: 'yes'
+                value: ['s255597','s8954','s56857','s6642','s25531','s237814','s233205']
+
+                Setup1:
+                    type: str
+                    visu_acl: rw
+                    cache: 'yes'
+                    initial_value: 's255597'
+
+                Setup2:
+                    type: str
+                    visu_acl: rw
+                    cache: 'yes'
+                    initial_value: 's8954'
+
+                Setup3:
+                    type: str
+                    visu_acl: rw
+                    cache: 'yes'
+                    initial_value: 's56857'
+
+                Setup4:
+                    type: str
+                    visu_acl: rw
+                    cache: 'yes'
+                    initial_value: 's6642'
+
+                Setup5:
+                    type: str
+                    visu_acl: rw
+                    cache: 'yes'
+                    initial_value: 's25531'
+                    
+                aendern:
+                    type: str
+                    visu_acl: rw
+                    
+            SenderName:
+                type: list
+                visu_acl: rw
+                cache: 'yes'
+                value: ['80s80s','ffn','NDR2','89.0 RTL','NJOY','Radio38','Center80']
+                
+                Setup1:
+                    type: str
+                    visu_acl: rw
+                    cache: 'yes'
+                    initial_value: '80s80s'
+                    
+                Setup2:
+                    type: str
+                    visu_acl: rw
+                    cache: 'yes'
+                    initial_value: 'ffn'
+
+                Setup3:
+                    type: str
+                    visu_acl: rw
+                    cache: 'yes'
+                    initial_value: 'NDR2'
+
+                Setup4:
+                    type: str
+                    visu_acl: rw
+                    cache: 'yes'
+                    initial_value: '89.0 RTL'
+
+                Setup5:
+                    type: str
+                    visu_acl: rw
+                    cache: 'yes'
+                    initial_value: 'NJOY'
+                    
+                aendern:
+                    type: str
+                    visu_acl: rw
+                    
+            SenderLogo:
+                
+                Logo1:
+                    type: str
+                    visu_acl: rw
+                    cache: 'yes'
+                    initial_value: 'https://cdn-radiotime-logos.tunein.com/s255597g.png'
+                    
+                    Art:
+                        type: num
+                        visu_acl: rw
+                        cache: 'yes'
+                        initial_value: 1
+                    
+                    Lokal:
+                        type: str
+                        visu_acl: rw
+                        cache: 'yes'
+                    
+                Logo2:
+                    type: str
+                    visu_acl: rw
+                    cache: 'yes'
+                    initial_value: 'https://cdn-profiles.tunein.com/s8954/images/logod.png'
+                    
+                    Art:
+                        type: num
+                        visu_acl: rw
+                        cache: 'yes'
+                        initial_value: 1
+                        
+                    Lokal:
+                        type: str
+                        visu_acl: rw
+                        cache: 'yes'
+
+                Logo3:
+                    type: str
+                    visu_acl: rw
+                    cache: 'yes'
+                    initial_value: 'https://cdn-profiles.tunein.com/s56857/images/logod.png'
+                    
+                    Art:
+                        type: num
+                        visu_acl: rw
+                        cache: 'yes'
+                        initial_value: 1
+                        
+                    Lokal:
+                        type: str
+                        visu_acl: rw
+                        cache: 'yes'
+
+                Logo4:
+                    type: str
+                    visu_acl: rw
+                    cache: 'yes'
+                    initial_value: 'https://cdn-profiles.tunein.com/s6642/images/logod.png'
+                    
+                    Art:
+                        type: num
+                        visu_acl: rw
+                        cache: 'yes'
+                        initial_value: 1
+                    
+                    Lokal:
+                        type: str
+                        visu_acl: rw
+                        cache: 'yes'
+
+                Logo5:
+                    type: str
+                    visu_acl: rw
+                    cache: 'yes'
+                    initial_value: 'https://cdn-profiles.tunein.com/s25531/images/logod.png'
+                    
+                    Art:
+                        type: num
+                        visu_acl: rw
+                        cache: 'yes'
+                        initial_value: 1
+                        
+                    Lokal:
+                        type: str
+                        visu_acl: rw
+                        cache: 'yes'
+
+            Info:
+
+                artist:
+                    type: str
+                    visu_acl: rw
+                    cache: 'yes'
+                    
+                fan_art:
+                    type: str
+                    visu_acl: rw
+                    cache: 'yes'
+                    
+                volume:
+                    type: str
+                    visu_acl: rw
+                    cache: 'yes'
+                    
+                mute:
+                    type: bool
+                    visu_acl: rw
+                    cache: 'yes'
+
+                subText1:
+                    type: str
+                    visu_acl: rw
+                    cache: 'yes'
+
+                subText2:
+                    type: str
+                    visu_acl: rw
+                    cache: 'yes'
+                    
+        Geraet:
+            type: str
+            visu_acl: rw
+            cache: 'yes'
+            initial_value: 'Echo Bad' 
+            
+        Volume:
+            type: num
+            visu_acl: rw
+            cache: 'yes'
+            initial_value: 7
+            
+            Setzen:
+                type: bool
+                visu_acl: rw
+                autotimer: 1 = 0
+            
+            An:
+                type: num
+                visu_acl: rw
+                cache: 'yes'
+                initial_value: 7
+            
+        Mute:
+            type: bool
+            visu_acl: rw
+            
+        Kurzwahl:
+            type: bool
+            visu_acl: rw
+            cache: 'yes'
+        
+        Titel:
+            type: bool
+            visu_acl: rw
+            cache: 'yes'
+            initial_value: 1
+
+        Zusatzinfo:
+            type: bool
+            visu_acl: rw
+            cache: 'yes'
+            
+        Station:
+            type: num
+            visu_acl: rw
+            autotimer: 2 = 0
+            
+        StatusDummy:
+            type: num
+            visu_acl: rw
