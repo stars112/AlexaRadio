@@ -1,27 +1,28 @@
 
-AlexaRadio für alexaRC4shng
----------------------------
+# AlexaRadio für alexaRC4shng
 
 Was ist das hier und was kann es:
-	-Ein Widget für das AlexaRC4shng Plugin von AndreK. 
-	-Mit dem Widget können Radiosender von dem Dienst TuneIn und Playliste von Spotify abgespielt werden
-	-Das Radio kann von Hand oder über einen Präsenzmelder gestartet/beendet werden.
-	-Zeiten wann das Radio vom Präsenzmelder gestartet werden können per UZSU im Widget in der Visu gesperrt werden.
-	-Es gibt 5 Stationstasten, die über das Widget in der Visu belegt und konfiguriert werden können.
+
+	- Ein Widget für das AlexaRC4shng Plugin von AndreK. 
+	- Mit dem Widget können Radiosender von dem Dienst TuneIn und Playliste von Spotify abgespielt werden
+	- Das Radio kann von Hand oder über einen Präsenzmelder gestartet/beendet werden.
+	- Zeiten wann das Radio vom Präsenzmelder gestartet werden können per UZSU im Widget in der Visu gesperrt werden.
+	- Es gibt 5 Stationstasten, die über das Widget in der Visu belegt und konfiguriert werden können.
 	    (Weitere Sender, falls nötig, können in Listen in den Items konfiguriert werden.)
-	-Die Senderliste kann über das Widget sortiert, erweitert oder reduziert werden.
-	-Die Einschaltlautstärke für das automatische Einschalten kann über das Widget in der Visu festgelegt werden.
-	-Der Sender für das automatische Einschalten kann über das Widget in der Visu festgelegt werden.
-	-Das Alexa Gerät kann über das Widget in der Visu ausgewählt werden.
-	-Diverse Design Funktionen können über das Widget in der Visu eingestellt werden.
-	-Die Lautstärke des Alexa Geräts kann über das Widget in der Visu angepasst werden.
-	
+	- Die Senderliste kann über das Widget sortiert, erweitert oder reduziert werden.
+	- Die Einschaltlautstärke für das automatische Einschalten kann über das Widget in der Visu festgelegt werden.
+	- Der Sender für das automatische Einschalten kann über das Widget in der Visu festgelegt werden.
+	- Das Alexa Gerät kann über das Widget in der Visu ausgewählt werden.
+	- Diverse Design Funktionen können über das Widget in der Visu eingestellt werden.
+	- Die Lautstärke des Alexa Geräts kann über das Widget in der Visu angepasst werden.
+
 Was wird benötigt:
-	-Benötigt wird das Plugin AlexaRC4shng von AndreK. Das Plugin sollte funktionstüchtig eingerichtet sein.
-	-Die Struct Datei die in den Ordner smarthome/structs kommt.
-	-Die Widget Datei, die in den Ordner Smartvisu/dropins/widgets kommt.
-	-Die Logic Datei, die in den Ordner smarthome/logics kommt.
-	-Den Aufruf der Logik der unverändert in die smarthome/etc/logic.yaml Datei eingefügt/ergänzt wird.
+
+	- Benötigt wird das Plugin AlexaRC4shng von AndreK. Das Plugin sollte funktionstüchtig eingerichtet sein.
+	- Die Struct Datei die in den Ordner smarthome/structs kommt.
+	- Die Widget Datei, die in den Ordner Smartvisu/dropins/widgets kommt.
+	- Die Logic Datei, die in den Ordner smarthome/logics kommt.
+	- Den Aufruf der Logik der unverändert in die smarthome/etc/logic.yaml Datei eingefügt/ergänzt wird.
 	logic.yaml:
 	-----------
 	AlexaRadio:
@@ -48,19 +49,23 @@ Was wird benötigt:
 	Und in der Raumseite der eigenen Visu kommt der Widgetaufruf mit dem Item wo das Struct anknüpfen soll: 
 	    {{ widget_Radio.Alexa('', 'EG.Raum3.Alexa') }}
 		Hier also 'EG.Raum3.Alexa'
-		
+
 WICHTIGER HINWEIS:
+
 Die Option "ITEM BESTÄTIGUNG" in dem Smartvisu Setup muss eingeschaltet sein, damit alle Designfunktionen funktionieren.
 Man kann bei der Alexa Api nicht zu oft den Status triggern, da sonst der Zugang für eine Weile seitens des Anbieters gesperrt wird. Deshalb werden die Widget Informationen wie z.B. der Titel am Start nach 6 Sekunden (Alexa braucht etwas zu Einschalten) und danach nur alle 20 Sekunden geholt.
-Manchmal dauert es also etwas, bis ein Veränderung angezeigt wird. Bei den Stationstasten blinkt der Button dann diese Zeit lang.		
+Manchmal dauert es also etwas, bis ein Veränderung angezeigt wird. Bei den Stationstasten blinkt der Button dann diese Zeit lang.
+
 
 Erklärung der einzelnen Fenster:
-Hauptfenster:
-    -Play/Pause Button: 	Zeigt an, ob das Radio spielt oder aus ist.
-	-Lautstärke Symbol: 	Hier wird angezeigt, ob das Gerät gemutet ist oder nicht.
-	-Lautstärke Zahl:		Hier wird die aktuelle Lautstärke angezeigt. Beim Klick auf die Zahl kann die Lautstärke mit +/- in einem Popupfenster geändert werden und mit dem Button an das Gerät gesendet werden. 
-	-Logo Sender:			Hier wird das Logo des aktuellen Senders oder ein eigenes Symbol/Icon/Bild, wenn es einer der 5 Stationstasten entspricht, angezeigt.
-	-Weiterhin können hier, je nach Einstellungen die 5 Stationstasten, Der Interpret/Titel und einige Zusatzinfos des Senders mit angezeigt werden.
+
+    - Hauptfenster:
+
+        - Play/Pause Button: 	Zeigt an, ob das Radio spielt oder aus ist.
+	    - Lautstärke Symbol: 	Hier wird angezeigt, ob das Gerät gemutet ist oder nicht.
+	    - Lautstärke Zahl:		Hier wird die aktuelle Lautstärke angezeigt. Beim Klick auf die Zahl kann die Lautstärke mit +/- in einem Popupfenster geändert werden und mit dem Button an das Gerät gesendet werden. 
+	    - Logo Sender:			Hier wird das Logo des aktuellen Senders oder ein eigenes Symbol/Icon/Bild, wenn es einer der 5 Stationstasten entspricht, angezeigt.
+	    - Weiterhin können hier, je nach Einstellungen die 5 Stationstasten, Der Interpret/Titel und einige Zusatzinfos des Senders mit angezeigt werden.
 
 	-Einstellungen:
 		- Alexa Gerätename: Hier kann das Alexagerät ausgewählt werden. Die Geräte werden automatisch ermittelt. Es MUSS allerdings mindestens einmal die Logik getriggert werden, da hier die Geräte ermittelt werden. 
@@ -93,4 +98,3 @@ Hauptfenster:
 								Oder als dritte Möglichkeit ein lokales Bild/Icon auf dem Button dargestellt werden. Das Bild muss dann in "dropins/icons/ws" liegen.
 			- Lokales Bild: 	Dateiname mit Endung von dem Lokalen Bild in "dropins/icons/ws"
 			- Speichern Knopf:	Mit Klick auf diesen Knopf werden die neuen Werte der Stationstaste und der Senderliste zugeordnet.
-	
