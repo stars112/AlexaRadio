@@ -3,25 +3,25 @@ AlexaRadio für alexaRC4shng
 ---------------------------
 
 Was ist das hier und was kann es:
-	Ein Widget für das AlexaRC4shng Plugin von AndreK. 
-	Mit dem Widget können Radiosender von dem Dienst TuneIn und Playliste von Spotify abgespielt werden
-	Das Radio kann von Hand oder über einen Präsenzmelder gestartet/beendet werden.
-	Zeiten wann das Radio vom Präsenzmelder gestartet werden können per UZSU im Widget in der Visu gesperrt werden.
-	Es gibt 5 Stationstasten, die über das Widget in der Visu belegt und konfiguriert werden können.
+	-Ein Widget für das AlexaRC4shng Plugin von AndreK. 
+	-Mit dem Widget können Radiosender von dem Dienst TuneIn und Playliste von Spotify abgespielt werden
+	-Das Radio kann von Hand oder über einen Präsenzmelder gestartet/beendet werden.
+	-Zeiten wann das Radio vom Präsenzmelder gestartet werden können per UZSU im Widget in der Visu gesperrt werden.
+	-Es gibt 5 Stationstasten, die über das Widget in der Visu belegt und konfiguriert werden können.
 	    (Weitere Sender, falls nötig, können in Listen in den Items konfiguriert werden.)
-	Die Senderliste kann über das Widget sortiert, erweitert oder reduziert werden.
-	Die Einschaltlautstärke für das automatische Einschalten kann über das Widget in der Visu festgelegt werden.
-	Der Sender für das automatische Einschalten kann über das Widget in der Visu festgelegt werden.
-	Das Alexa Gerät kann über das Widget in der Visu ausgewählt werden.
-	Diverse Design Funktionen können über das Widget in der Visu eingestellt werden.
-	Die Lautstärke des Alexa Geräts kann über das Widget in der Visu angepasst werden.
+	-Die Senderliste kann über das Widget sortiert, erweitert oder reduziert werden.
+	-Die Einschaltlautstärke für das automatische Einschalten kann über das Widget in der Visu festgelegt werden.
+	-Der Sender für das automatische Einschalten kann über das Widget in der Visu festgelegt werden.
+	-Das Alexa Gerät kann über das Widget in der Visu ausgewählt werden.
+	-Diverse Design Funktionen können über das Widget in der Visu eingestellt werden.
+	-Die Lautstärke des Alexa Geräts kann über das Widget in der Visu angepasst werden.
 	
 Was wird benötigt:
-	Benötigt wird das Plugin AlexaRC4shng von AndreK. Das Plugin sollte funktionstüchtig eingerichtet sein.
-	Die Struct Datei die in den Ordner smarthome/structs kommt.
-	Die Widget Datei, die in den Ordner Smartvisu/dropins/widgets kommt.
-	Die Logic Datei, die in den Ordner smarthome/logics kommt.
-	Den Aufruf der Logik der unverändert in die smarthome/etc/logic.yaml Datei eingefügt/ergänzt wird.
+	-Benötigt wird das Plugin AlexaRC4shng von AndreK. Das Plugin sollte funktionstüchtig eingerichtet sein.
+	-Die Struct Datei die in den Ordner smarthome/structs kommt.
+	-Die Widget Datei, die in den Ordner Smartvisu/dropins/widgets kommt.
+	-Die Logic Datei, die in den Ordner smarthome/logics kommt.
+	-Den Aufruf der Logik der unverändert in die smarthome/etc/logic.yaml Datei eingefügt/ergänzt wird.
 	logic.yaml:
 	-----------
 	AlexaRadio:
