@@ -44,7 +44,7 @@ def alexaradioaus(sh):
 def alexainfo(sh):
     state,MediaInfo =sh.AlexaRc4shNG.get_player_info(items.return_item(tmppfad+'.Geraet')())
     logger.info('State :' + str(state) + ' - Info: ' + str(MediaInfo))
-    if (MediaInfo is not None) and (str(state) != '200'):
+    if (MediaInfo is not None) and (str(state) == '200'):
         items.return_item(tmppfad+'.Sender.Info.artist')(MediaInfo["playerInfo"]["infoText"]["title"])
         items.return_item(tmppfad+'.Sender.Info.fan_art')(MediaInfo["playerInfo"]["miniArt"]["url"])
         items.return_item(tmppfad+'.Sender.Info.volume')(MediaInfo["playerInfo"]["volume"]["volume"])
