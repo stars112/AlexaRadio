@@ -43,7 +43,8 @@ def alexaradioaus(sh):
     
 def alexainfo(sh):
     state,MediaInfo =sh.AlexaRc4shNG.get_player_info(items.return_item(tmppfad+'.Geraet')())
-    logger.info('State :' + str(state) + ' - Info: ' + str(MediaInfo))
+    #logger.info('State: ' + str(state) + ' - Info: ' + str(MediaInfo))
+    #logger.info('ARadio MediaInfo Status: ' + str(state))
     if (MediaInfo is not None) and (str(state) == '200'):
         items.return_item(tmppfad+'.Sender.Info.artist')(MediaInfo["playerInfo"]["infoText"]["title"])
         items.return_item(tmppfad+'.Sender.Info.fan_art')(MediaInfo["playerInfo"]["miniArt"]["url"])
@@ -123,27 +124,34 @@ if tmppfadende != -1:
     tmppfad = tmppfad[0:tmppfadende+10]
     #logger.info(tmppfad)
 
-if str(tmpsource) == tmppfad+'.Praesenzmelder': # AleaRadio per PM schalten
-    if (tmpvalue == 1) and (items.return_item(tmppfad+'.Sperren')() == 0):
-        items.return_item(tmppfad+'.PlayPause')(1)
-    if tmpvalue == 0:
-        if items.return_item(tmppfad+'.PlayPause')() > 0:
-            items.return_item(tmppfad+'.PlayPause')(0)
-if str(tmpsource) == tmppfad+'.PlayPause': #  AlexaRadio schalten
-    if tmpvalue == 1:
-        items.return_item(tmppfad+'.PlayPause').timer(6,10)
-        alexaradioan(sh)
+if sh.GLOBAL.Anwesenheit.irgendeiner() == 1:
+    if str(tmpsource) == tmppfad+'.Praesenzmelder': # AleaRadio per PM schalten
+        if (tmpvalue == 1) and (items.return_item(tmppfad+'.Sperren')() == 0):
+            if items.return_item(tmppfad+'.Sender.SenderPMLetzter')() != True:
+                items.return_item(tmppfad+'.Sender.SenderAkt')(items.return_item(tmppfad+'.Sender.SenderStart')())
+            items.return_item(tmppfad+'.PlayPause')(1)
+        if tmpvalue == 0:
+            if items.return_item(tmppfad+'.PlayPause')() > 0:
+                items.return_item(tmppfad+'.PlayPause')(0)
+    if str(tmpsource) == tmppfad+'.PlayPause': #  AlexaRadio schalten
+        if tmpvalue == 1:
+            items.return_item(tmppfad+'.PlayPause').timer(6,10)
+            alexaradioan(sh)
 
-    elif tmpvalue == 10:
-        alexainfo(sh)
-        items.return_item(tmppfad+'.PlayPause').timer(20,10)
-    else:
+        elif tmpvalue == 10:
+            alexainfo(sh)
+            items.return_item(tmppfad+'.PlayPause').timer(20,10)
+        else:
+            alexaradioaus(sh)
+    if str(tmpsource) == tmppfad+'.Station': # Stationstasten schalten
+        if (tmpvalue > 0) and (tmpvalue < 6):
+            items.return_item(tmppfad+'.Sender.SenderAkt')(items.return_item(tmppfad+'.Sender.SenderNr')(index=tmpvalue-1))
+            items.return_item(tmppfad+'.PlayPause').remove_timer()
+            items.return_item(tmppfad+'.PlayPause')(1)
+else: 
+    if items.return_item(tmppfad+'.PlayPause')() > 0:
+        items.return_item(tmppfad+'.PlayPause')(0)
         alexaradioaus(sh)
-if str(tmpsource) == tmppfad+'.Station': # Stationstasten schalten
-    if (tmpvalue > 0) and (tmpvalue < 6):
-        items.return_item(tmppfad+'.Sender.SenderAkt')(items.return_item(tmppfad+'.Sender.SenderNr')(index=tmpvalue-1))
-        items.return_item(tmppfad+'.PlayPause').remove_timer()
-        items.return_item(tmppfad+'.PlayPause')(1)
 
 if str(tmpsource) == tmppfad+'.Sender.speichern': # Sender speichern
     if tmpvalue == 101:
