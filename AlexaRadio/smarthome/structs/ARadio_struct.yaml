@@ -53,6 +53,17 @@ AlexaRadioVorlage:
                 visu_acl: rw
                 cache: 'yes'
                 initial_value: 's255597' #<-80s80s; 's237814' = Radio38
+                
+            SenderStart:
+                type: str
+                visu_acl: rw
+                cache: 'yes'
+                initial_value: 's255597'
+                
+            SenderPMLetzter:
+                type: bool
+                visu_acl: rw
+                cache: 'yes'
             
             SenderNr:
                 type: list
