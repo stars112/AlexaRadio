@@ -288,14 +288,20 @@
 							<td align="left">Alexa Gerätename:</td>
 							<td Width="50px">{{ basic.stateswitch('', item_alexa~'.AlexaRadio.Sender.speichern', 'micro', 99, 'jquery_refresh.svg', '') }}</td>
 							<td Width="100px">{{ basic.select('', item_alexa~'.AlexaRadio.Geraet', '', '', '', '', '', '', item_alexa~'.AlexaRadio.Meine_Geraete') }}</td>
-						</tr><tr>
-							<td align="left">Einschaltsender:</td>
-							<td>{{ basic.stateswitch('', '', 'icon', '', 'control_dots_hor_f.svg', '', 'icon0', '', '#popupliste') }}</td>
-							<td>{{ basic.select('', item_alexa~'.AlexaRadio.Sender.SenderAkt', '', '', '', '', '', '', item_alexa~'.AlexaRadio.Sender.SenderNr', item_alexa~'.AlexaRadio.Sender.SenderName') }}</td>
-						</tr><tr>
+						</tr>
+                    </table>
+					<table align="middle" width="100%">
+						<tr>
+							<td align="left">Senderliste:</td>
+							<td Width="50px">{{ basic.stateswitch('', '', 'icon', '', 'control_dots_hor_f.svg', '', 'icon0', '', '#popupliste') }}</td>
+							<td Width="100px">{{ basic.select('', item_alexa~'.AlexaRadio.Sender.SenderAkt', '', '', '', '', '', '', item_alexa~'.AlexaRadio.Sender.SenderNr', item_alexa~'.AlexaRadio.Sender.SenderName') }}</td>
+						</tr>
+					</table>
+                    <table align="middle" width="100%">
+						<tr>
 							<td align="left">Einschaltlautstärke:</td>
-							<td></td>
-							<td>{{ basic.select('', item_alexa~'.AlexaRadio.Volume.An', '', [0,4,7,10,15,20,30,40,50,60]) }}</td>
+							<td Width="50px"></td>
+							<td Width="100px">{{ basic.select('', item_alexa~'.AlexaRadio.Volume.An', '', [0,4,7,10,15,20,30,40,50,60]) }}</td>
 						</tr><tr>
 							<td align="left">Kurzwahl Knöpfe anzeigen:</td>
 							<td></td>
@@ -308,12 +314,30 @@
 							<td align="left">Zusatzinfo anzeigen:</td>
 							<td></td>
 							<td>{{basic.flip('', item_alexa~'.AlexaRadio.Zusatzinfo', 'Ein', 'Aus')}}</td>
-						</tr><tr>
-							<td align="left">Autom. AN Sperren:</td>
-							<td>{{ device.uzsuicon('', item_alexa~'.AlexaRadio.Sperren.schaltuhr', 'Autom. Einschalten sperren', 'jquery_clock.svg', 'jquery_clock.svg', '', ['An','Aus']) }}</td>
-							<td>{{basic.flip('', item_alexa~'.AlexaRadio.Sperren', 'Ein', 'Aus')}}</td>
 						</tr>
 					</table>
+                    <hr />
+                    <table align="middle" width="100%">
+						<tr>
+							<td align="left">PM autom. AN Sperren:</td>
+							<td Width="50px">{{ device.uzsuicon('', item_alexa~'.AlexaRadio.Sperren.schaltuhr', 'PM Einschalten sperren', 'jquery_clock.svg', 'jquery_clock.svg', '', ['An','Aus']) }}</td>
+							<td Width="100px">{{basic.flip('', item_alexa~'.AlexaRadio.Sperren', 'Ein', 'Aus')}}</td>
+						</tr><tr>
+							<td align="left">PM -> letzter Sender:</td>
+							<td></td>
+							<td>{{basic.flip('', item_alexa~'.AlexaRadio.Sender.SenderPMLetzter', 'Ein', 'Aus')}}</td>
+						</tr>
+					</table>
+                    {{ status.collapse('PMLetzterSender', item_alexa~'.AlexaRadio.Sender.SenderPMLetzter', '1') }}
+		            <div class="hide" data-bind="PMLetzterSender">
+                        <table align="middle" width="100%">
+    						<tr>
+    							<td align="left">PM Einschaltsender:</td>
+    							<td Width="50px"></td>
+    							<td Width="100px">{{ basic.select('', item_alexa~'.AlexaRadio.Sender.SenderStart', '', '', '', '', '', '', item_alexa~'.AlexaRadio.Sender.SenderNr', item_alexa~'.AlexaRadio.Sender.SenderName') }}</td>
+    						</tr>
+                        </table>
+                    </div>
                     <div id="popupliste" data-role="popup">
     					<a href="#" data-rel="back" data-role="button" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
     					<h2 align=center><u>Senderliste bearbeiten:</u></h2>
