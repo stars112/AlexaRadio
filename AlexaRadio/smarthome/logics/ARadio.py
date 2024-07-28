@@ -46,12 +46,13 @@ def alexainfo(sh):
     #logger.info('State: ' + str(state) + ' - Info: ' + str(MediaInfo))
     #logger.info('ARadio MediaInfo Status: ' + str(state))
     if (MediaInfo is not None) and (str(state) == '200'):
-        items.return_item(tmppfad+'.Sender.Info.artist')(MediaInfo["playerInfo"]["infoText"]["title"])
-        items.return_item(tmppfad+'.Sender.Info.fan_art')(MediaInfo["playerInfo"]["miniArt"]["url"])
-        items.return_item(tmppfad+'.Sender.Info.volume')(MediaInfo["playerInfo"]["volume"]["volume"])
-        items.return_item(tmppfad+'.Sender.Info.mute')(MediaInfo["playerInfo"]["volume"]["muted"])
-        items.return_item(tmppfad+'.Sender.Info.subText1')(MediaInfo["playerInfo"]["infoText"]["subText1"])
-        items.return_item(tmppfad+'.Sender.Info.subText2')(MediaInfo["playerInfo"]["infoText"]["subText2"])
+        if (MediaInfo["playerInfo"]["infoText"] != None):
+            items.return_item(tmppfad+'.Sender.Info.artist')(MediaInfo["playerInfo"]["infoText"]["title"])
+            items.return_item(tmppfad+'.Sender.Info.fan_art')(MediaInfo["playerInfo"]["miniArt"]["url"])
+            items.return_item(tmppfad+'.Sender.Info.volume')(MediaInfo["playerInfo"]["volume"]["volume"])
+            items.return_item(tmppfad+'.Sender.Info.mute')(MediaInfo["playerInfo"]["volume"]["muted"])
+            items.return_item(tmppfad+'.Sender.Info.subText1')(MediaInfo["playerInfo"]["infoText"]["subText1"])
+            items.return_item(tmppfad+'.Sender.Info.subText2')(MediaInfo["playerInfo"]["infoText"]["subText2"])
         
 def logo(sh, logonr):
     if items.return_item(tmppfad+'.Sender.SenderLogo.Logo'+str(logonr)+'.Art')() == 1:
